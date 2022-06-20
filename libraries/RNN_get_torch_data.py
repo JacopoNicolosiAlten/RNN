@@ -54,6 +54,7 @@ def get_train_data(data_path: str, n_perturbed_replicas: int, seed: str) -> Data
         y_train = pkl.load(file)
     with open(os.path.join(data_path, 'features.pickle'), 'rb') as file:
         features = pkl.load(file)
+    features = features.astype(str)
     perturbed_copies = perturbate_X(X_train=X_train, features=features,
             n_perturbed_replicas=n_perturbed_replicas, seed=seed)
     X_train = np.concatenate(perturbed_copies, axis=0)
