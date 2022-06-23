@@ -58,7 +58,7 @@ def get_train_data(data_path: str, n_perturbed_replicas: int, seed: str) -> Data
     perturbed_copies = perturbate_X(X_train=X_train, features=features,
             n_perturbed_replicas=n_perturbed_replicas, seed=seed)
     X_train = np.concatenate(perturbed_copies, axis=0)
-    y_train = np.repeat(y_train, n_perturbed_replicas)
+    y_train = np.repeat(y_train, (n_perturbed_replicas + 1))
     train_data = dataset(X=X_train, y=y_train, features=features)
     return train_data
 
