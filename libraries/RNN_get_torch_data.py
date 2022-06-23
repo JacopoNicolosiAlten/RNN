@@ -21,13 +21,13 @@ def perturbate_X(X_train: np.ndarray, features: np.ndarray, n_perturbed_replicas
     categorical = np.logical_or(np.char.startswith(features, 'RC_'),
         np.char.endswith(features, 'Indicator'))[np.newaxis, np.newaxis, :]
     rng = np.random.Generator(np.random.PCG64(seed))
-    noises = rng.normal(0, .1, (n_perturbed_replicas, ) + X_train.shape)
+    noises = rng.normal(0, .01, (n_perturbed_replicas, ) + X_train.shape)
     copies = [X_train]
     for noise in noises:
         perturbation = np.where(categorical, np.zeros_like(X_train), noise)
         copies.append(X_train + perturbation)
     return copies
-  
+
 class dataset(Dataset):
     def __init__(self, X, y, features):
         self.features = features
